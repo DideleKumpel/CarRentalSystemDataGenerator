@@ -7,6 +7,46 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="CarRentDB data generator" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"/>
+        <Label Grid.Row="1" Content="Select the tables you want to generate data for" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <CheckBox Content="Adresses"/>
+            <CheckBox Grid.Row="1" Content="Brands"/>
+            <CheckBox Grid.Row="2" Content="Cars"/>
+            <CheckBox Grid.Row="3" Content="Customers"/>
+            <CheckBox Grid.Row="4" Content="Employees"/>
+            <CheckBox Grid.Row="5" Content="Maintenances"/>
+            <CheckBox Grid.Column="1" Content="Models"/>
+            <CheckBox Grid.Row="1" Grid.Column="1" Content="Offices"/>
+            <CheckBox Grid.Row="2" Grid.Column="1" Content="Payments"/>
+            <CheckBox Grid.Row="3" Grid.Column="1" Content="Offices"/>
+            <CheckBox Grid.Row="4" Grid.Column="1" Content="Rentals"/>
+        </Grid>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Height="30">
+            <Label Content="Write number of records to generate "/>
+            <TextBox Width="100" Margin="5"/>
+        </StackPanel>
+        <Button Grid.Row="4" Content="Generate data" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40"/>
+        
     </Grid>
 </Window>
