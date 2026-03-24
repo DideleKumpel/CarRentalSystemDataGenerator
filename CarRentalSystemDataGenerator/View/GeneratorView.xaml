@@ -41,8 +41,7 @@
             <CheckBox Grid.Column="1" Content="Models"/>
             <CheckBox Grid.Row="1" Grid.Column="1" Content="Offices"/>
             <CheckBox Grid.Row="2" Grid.Column="1" Content="Payments"/>
-            <CheckBox Grid.Row="3" Grid.Column="1" Content="Offices"/>
-            <CheckBox Grid.Row="4" Grid.Column="1" Content="Rentals"/>
+            <CheckBox Grid.Row="3" Grid.Column="1" Content="Rentals"/>
         </Grid>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Height="30">
             <Label Content="Write number of records to generate "/>
