@@ -9,10 +9,8 @@ namespace CarRentalSystemDataGenerator.Services
         //Get
         T Get(int id);
         List<T> GetAll();
-        List<T> GetByFilter(Func<T, bool> filter);
         T Get(T item);
         bool Exists(int id);
-        bool Exclude(T item);
 
         //Create
         T Add(T item);
