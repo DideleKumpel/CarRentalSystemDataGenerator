@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarRentalSystemDataGenerator.Services
 {
-    internal interface DbServiceInterface<T>
+    internal interface IDbServiceInterface<T>
     {
         //Get
         T Get(int id);
@@ -14,12 +14,12 @@ namespace CarRentalSystemDataGenerator.Services
 
         //Create
         T Add(T item);
-        int AddMany(List<T> items);
+        int AddMany(List<T> items, bool CancelOnError);
 
         //Update
         T Update(T item);
         T Update(int id, T item);
-        T UpdateMany(List<T> items);
+        int UpdateMany(List<T> items, bool CancelOnError);
 
         //Delete
         bool Delete(int id);
