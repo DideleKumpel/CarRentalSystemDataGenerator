@@ -21,7 +21,7 @@ namespace CarRentalSystemDataGenerator.Services
             }
             return found;
         }
-        List<Brand> GetAll()
+        override public List<Brand> GetAll()
         {
             List<Brand> foundBrands = base._db.Brands.ToList();
             if(foundBrands == null)
@@ -30,7 +30,7 @@ namespace CarRentalSystemDataGenerator.Services
             }
             return foundBrands;
         }
-        Brand Get(Brand item)
+        override public Brand Get(Brand item)
         {
             Brand found = base._db.Brands.FirstOrDefault(b => b.Name == item.Name);
             if (found == null)             {
@@ -38,7 +38,7 @@ namespace CarRentalSystemDataGenerator.Services
             }
             return found;
         }
-        bool Exists(int id)
+        override public bool Exists(int id)
         {
             Brand found = base._db.Brands.FirstOrDefault(b => b.BrandID == id);
             if (found == null)
@@ -52,7 +52,7 @@ namespace CarRentalSystemDataGenerator.Services
         }
 
         //Create
-        Brand Add(Brand item)
+        override public Brand Add(Brand item)
         {
             
             if (item == null)
@@ -72,7 +72,7 @@ namespace CarRentalSystemDataGenerator.Services
             }
             return item;
         }
-        int AddMany(List<Brand> items, bool CancelOnError) {
+        override public int AddMany(List<Brand> items, bool CancelOnError) {
             base.BeginTransaction();
             int successCount = 0;
             foreach (Brand item in items)
@@ -100,7 +100,7 @@ namespace CarRentalSystemDataGenerator.Services
         }
 
         //Update
-        Brand Update(Brand item)
+        override public Brand Update(Brand item)
         {
             if (item == null)
             {
@@ -124,7 +124,7 @@ namespace CarRentalSystemDataGenerator.Services
             }
             return found;
         }
-        Brand Update(int id, Brand item)
+        override public Brand Update(int id, Brand item)
         {
             if (item == null)
             {
@@ -148,7 +148,7 @@ namespace CarRentalSystemDataGenerator.Services
             }
             return found;
         }
-        int UpdateMany(List<Brand> items, bool CancelOnError)
+        override public int UpdateMany(List<Brand> items, bool CancelOnError)
         {
             base.BeginTransaction();
             int successCount = 0;
@@ -177,7 +177,7 @@ namespace CarRentalSystemDataGenerator.Services
         }
 
         //Delete
-        bool Delete(int id)
+        override public bool Delete(int id)
         {
             base.BeginTransaction();
             try
@@ -192,7 +192,7 @@ namespace CarRentalSystemDataGenerator.Services
             }
              return true;
         }
-        bool Delete(Brand item)
+        override public bool Delete(Brand item)
         {
             base.BeginTransaction();
             try
