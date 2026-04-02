@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CarRentalSystemDataGenerator.Services
+namespace CarRentalSystemDataGenerator.Services.DbServices
 {
     internal class EmployeeDbService : DbServiceBase<Employee>
     {

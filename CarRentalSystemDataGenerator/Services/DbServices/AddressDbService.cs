@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Documents;
 
-namespace CarRentalSystemDataGenerator.Services
+namespace CarRentalSystemDataGenerator.Services.DbServices
 {
     internal class AddressDbService : DbServiceBase<Address>
     {

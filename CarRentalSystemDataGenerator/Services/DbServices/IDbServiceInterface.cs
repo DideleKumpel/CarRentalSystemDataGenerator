@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarRentalSystemDataGenerator.Services
+namespace CarRentalSystemDataGenerator.Services.DbServices
 {
     internal interface IDbServiceInterface<T>
     {
