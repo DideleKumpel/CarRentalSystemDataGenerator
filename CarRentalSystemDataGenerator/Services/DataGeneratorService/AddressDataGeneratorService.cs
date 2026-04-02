@@ -1,6 +1,7 @@
 ﻿using CarRentalSystemDataGenerator.DB.Entities;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace CarRentalSystemDataGenerator.Services.DataGeneratorService
@@ -9,6 +10,23 @@ namespace CarRentalSystemDataGenerator.Services.DataGeneratorService
     {
         AddressDataGeneratorService() : base() { }
         AddressDataGeneratorService(int seed) : base(seed) { }
+
+        public List<Address> GenerateData(int Amount)
+        {
+            List<Address> addresses = new List<Address>();
+            for(int i = 0; i < Amount; i++)
+            {
+                Address address = new Address
+                {
+                    City = GenerateCity(),
+                    Street = GenerateStreet(),
+                    HouseNumber = GenerateHouseNumber(),
+                    PostalCode = GeneratePostalCode()
+                };
+                addresses.Add(address);
+            }
+            return addresses;
+        }
 
         string GenerateCity()
         {
