@@ -8,8 +8,8 @@ namespace CarRentalSystemDataGenerator.Services.DataGeneratorService
 {
     internal class AddressDataGeneratorService : DataGeneratorServiceBase<Address>
     {
-        AddressDataGeneratorService() : base() { }
-        AddressDataGeneratorService(int seed) : base(seed) { }
+        public AddressDataGeneratorService() : base() { }
+        public AddressDataGeneratorService(int seed) : base(seed) { }
 
         public List<Address> GenerateData(int Amount)
         {

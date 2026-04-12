@@ -8,7 +8,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 {
     internal class MaintenanceDbService : DbServiceBase<Maintenance>
     {
-        protected MaintenanceDbService(AppDbContext db) : base(db)
+        public MaintenanceDbService(AppDbContext db) : base(db)
         {
         }
 

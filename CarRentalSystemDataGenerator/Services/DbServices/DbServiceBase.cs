@@ -8,7 +8,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 {
     internal class DbServiceBase<T> : IDbServiceInterface<T>
     {
-        protected readonly AppDbContext _db;
+        public readonly AppDbContext _db;
 
         protected DbServiceBase(AppDbContext db)
         {

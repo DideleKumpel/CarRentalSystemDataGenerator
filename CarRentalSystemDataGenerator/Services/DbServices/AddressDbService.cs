@@ -11,7 +11,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
     internal class AddressDbService : DbServiceBase<Address>
     {
 
-        protected AddressDbService(AppDbContext db) : base(db)
+        public AddressDbService(AppDbContext db) : base(db)
         {
         }
 

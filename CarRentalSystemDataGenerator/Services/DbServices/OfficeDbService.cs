@@ -8,7 +8,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 {
     internal class OfficeDbService : DbServiceBase<Office>
     {
-        protected OfficeDbService(AppDbContext db) : base(db)
+        public OfficeDbService(AppDbContext db) : base(db)
         {
         }
 

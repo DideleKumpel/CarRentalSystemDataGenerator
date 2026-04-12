@@ -8,7 +8,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 {
     internal class PaymentDbService : DbServiceBase<Payment>
     {
-        protected PaymentDbService(AppDbContext db) : base(db)
+        public PaymentDbService(AppDbContext db) : base(db)
         {
         }
 
