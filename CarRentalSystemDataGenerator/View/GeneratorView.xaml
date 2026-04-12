@@ -32,22 +32,22 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <CheckBox Content="Adresses"/>
-            <CheckBox Grid.Row="1" Content="Brands"/>
-            <CheckBox Grid.Row="2" Content="Cars"/>
-            <CheckBox Grid.Row="3" Content="Customers"/>
-            <CheckBox Grid.Row="4" Content="Employees"/>
-            <CheckBox Grid.Row="5" Content="Maintenances"/>
-            <CheckBox Grid.Column="1" Content="Models"/>
-            <CheckBox Grid.Row="1" Grid.Column="1" Content="Offices"/>
-            <CheckBox Grid.Row="2" Grid.Column="1" Content="Payments"/>
-            <CheckBox Grid.Row="3" Grid.Column="1" Content="Rentals"/>
+            <CheckBox Content="Adresses" IsChecked="{Binding AdressesIsChecked}"/>
+            <CheckBox Grid.Row="1" Content="Brands" IsChecked="{Binding BrandsIsChecked}"/>
+            <CheckBox Grid.Row="2" Content="Cars" IsChecked="{Binding CarsIsChecked}"/>
+            <CheckBox Grid.Row="3" Content="Customers" IsChecked="{Binding CustomersIsChecked}"/>
+            <CheckBox Grid.Row="4" Content="Employees" IsChecked="{Binding EmployeesIsChecked}"/>
+            <CheckBox Grid.Row="5" Content="Maintenances" IsChecked="{Binding MaintenancesIsChecked}"/>
+            <CheckBox Grid.Column="1" Content="Models" IsChecked="{Binding ModelsIsChecked}"/>
+            <CheckBox Grid.Row="1" Grid.Column="1" Content="Offices" IsChecked="{Binding OfficesIsChecked}"/>
+            <CheckBox Grid.Row="2" Grid.Column="1" Content="Payments" IsChecked="{Binding PaymentsIsChecked}"/>
+            <CheckBox Grid.Row="3" Grid.Column="1" Content="Rentals" IsChecked="{Binding RentalsIsChecked}"/>
         </Grid>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Height="30">
             <Label Content="Write number of records to generate "/>
-            <TextBox Width="100" Margin="5"/>
+            <TextBox Width="100" Margin="5" Text="{Binding NumOfRecordToGenreate, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <Button Grid.Row="4" Content="Generate data" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40"/>
+        <Button Grid.Row="4" Content="Generate data" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40" Command="{Binding GenerateDataCommand}"/>
 
     </Grid>
 </UserControl>
