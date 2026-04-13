@@ -1,6 +1,7 @@
 ﻿using CarRentalSystemDataGenerator.DB.Entities;
 using CarRentalSystemDataGenerator.Services;
 using CarRentalSystemDataGenerator.Services.DbServices;
+using CarRentalSystemDataGenerator.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -46,6 +47,43 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
         private DatabaseFacade _dbFacade;
         private DataGeneratorsFacade _dataGeneratorsFacade;
+
+        [RelayCommand]
+        private void SelectAll()
+        { 
+            if(AdressesIsChecked && BrandsIsChecked && CarsIsChecked && CustomersIsChecked && EmployeesIsChecked && MaintenancesIsChecked && ModelsIsChecked && OfficesIsChecked && PaymentsIsChecked && RentalsIsChecked)
+            {
+                AdressesIsChecked = false;
+                BrandsIsChecked = false;
+                CarsIsChecked = false;
+                CustomersIsChecked = false;
+                EmployeesIsChecked = false;
+                MaintenancesIsChecked = false;
+                ModelsIsChecked = false;
+                OfficesIsChecked = false;
+                PaymentsIsChecked = false;
+                RentalsIsChecked = false;
+            }
+            else
+            {
+                AdressesIsChecked = true;
+                BrandsIsChecked = true;
+                CarsIsChecked = true;
+                CustomersIsChecked = true;
+                EmployeesIsChecked = true;
+                MaintenancesIsChecked = true;
+                ModelsIsChecked = true;
+                OfficesIsChecked = true;
+                PaymentsIsChecked = true;
+                RentalsIsChecked = true;
+            }
+
+        }
+        [RelayCommand]
+        private void BackToMainWindow()
+        {
+            App.Current.MainWindow.Content = new MainMenuView();
+        }
 
         [RelayCommand]
         private void GenerateData()

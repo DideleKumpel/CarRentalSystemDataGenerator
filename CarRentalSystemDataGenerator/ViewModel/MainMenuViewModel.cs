@@ -8,7 +8,7 @@ using CarRentalSystemDataGenerator.View;
 
 namespace CarRentalSystemDataGenerator.ViewModel
 {
-    internal partial class MainWindowViewModel: ObservableObject
+    internal partial class MainMenuViewModel: ObservableObject
     {
         [RelayCommand]
         private void SwitchToGeneratorView()
