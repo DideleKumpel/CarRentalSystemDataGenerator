@@ -18,7 +18,7 @@ namespace CarRentalSystemDataGenerator.Services.DataGeneratorService
             for (int i = 0; i < Amount; i++)
             {
                 var rental = rentals[Random.Next(rentals.Count)];
-                list.Add(new Payment { RentalID = rental.RentalID, Amount = (decimal)(Random.Next(10, 2000) + Random.NextDouble()), PaymentDate = DateTime.Now.AddDays(-Random.Next(0, 365)), Method = (PaymentMethod)methods.GetValue(Random.Next(methods.Length))! });
+                list.Add(new Payment { RentalID = rental.RentalID, Amount = (decimal)(Random.Next(10, 2000) + Random.NextDouble()), PaymentDate = DateTime.UtcNow.AddDays(-Random.Next(0, 365)), Method = (PaymentMethod)methods.GetValue(Random.Next(methods.Length))! });
             }
             return list;
         }

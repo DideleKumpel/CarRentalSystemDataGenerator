@@ -59,21 +59,21 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             {
                 throw new Exception("Brand cannot be null.");
             }
-            base.BeginTransaction();
+            BeginTransaction();;
             try
             {
                 base._db.Brands.Add(item);
-                base._db.SaveChanges();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error adding brand: {ex.Message}");
             }
+            CommitTransaction();
             return item;
         }
         override public int AddMany(List<Brand> items, bool CancelOnError) {
-            base.BeginTransaction();
+            BeginTransaction();;
             int successCount = 0;
             foreach (Brand item in items)
             {
@@ -83,19 +83,19 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                     {
                         throw new Exception("Brand cannot be null.");
                     }
-                    Add(item);
+                    base._db.Brands.Add(item);
                     successCount++;
                 }
                 catch (Exception ex)
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error adding brand: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
+            CommitTransaction();
             return successCount;
         }
 
@@ -111,7 +111,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             {
                 throw new Exception($"Brand with id {item.BrandID} not found.");
             }
-            base.BeginTransaction();
+            BeginTransaction();;
             try
             {
                 found.Name = item.Name;
@@ -119,7 +119,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating brand: {ex.Message}");
             }
             return found;
@@ -135,7 +135,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             {
                 throw new Exception($"Brand with id {id} not found.");
             }
-            base.BeginTransaction();
+            BeginTransaction();;
             try
             {
                 found.Name = item.Name;
@@ -143,14 +143,14 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating brand: {ex.Message}");
             }
             return found;
         }
         override public int UpdateMany(List<Brand> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();;
             int successCount = 0;
             foreach (Brand item in items)
             {
@@ -160,14 +160,14 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                     {
                         throw new Exception("Brand cannot be null.");
                     }
-                    Update(item);
+                    base._db.Brands.Update(item);
                     successCount++;
                 }
                 catch (Exception ex)
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error updating brand: {ex.Message}");
                     }
                 }
@@ -179,7 +179,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         //Delete
         override public bool Delete(int id)
         {
-            base.BeginTransaction();
+            BeginTransaction();;
             try
             {
                 base._db.Brands.Remove(base._db.Brands.FirstOrDefault(b => b.BrandID == id));
@@ -187,14 +187,14 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting brand: {ex.Message}");
             }
              return true;
         }
         override public bool Delete(Brand item)
         {
-            base.BeginTransaction();
+            BeginTransaction();;
             try
             {
                 base._db.Brands.Remove(base._db.Brands.FirstOrDefault(b => b.BrandID == item.BrandID));
@@ -202,7 +202,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting brand: {ex.Message}");
             }
             return true;

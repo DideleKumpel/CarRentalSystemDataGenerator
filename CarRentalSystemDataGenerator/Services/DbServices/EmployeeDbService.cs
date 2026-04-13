@@ -40,15 +40,15 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         public override Employee Add(Employee item)
         {
             if (item == null) throw new Exception("Employee cannot be null.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 base._db.Employees.Add(item);
-                base._db.SaveChanges();
-            }
+				CommitTransaction();
+			}
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error adding employee: {ex.Message}");
             }
             return item;
@@ -56,27 +56,27 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int AddMany(List<Employee> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
                 try
                 {
                     if (item == null) throw new Exception("Employee cannot be null.");
-                    Add(item);
+					base._db.Employees.Add(item);
                     successCount++;
                 }
                 catch (Exception ex)
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error adding employee: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
-            return successCount;
+			CommitTransaction();
+			return successCount;
         }
 
         public override Employee Update(Employee item)
@@ -84,7 +84,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Employee cannot be null.");
             var found = base._db.Employees.FirstOrDefault(e => e.EmployeeID == item.EmployeeID);
             if (found == null) throw new Exception($"Employee with id {item.EmployeeID} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.OfficeID = item.OfficeID;
@@ -95,7 +95,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating employee: {ex.Message}");
             }
             return found;
@@ -106,7 +106,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Employee cannot be null.");
             var found = base._db.Employees.FirstOrDefault(e => e.EmployeeID == id);
             if (found == null) throw new Exception($"Employee with id {id} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.OfficeID = item.OfficeID;
@@ -117,7 +117,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating employee: {ex.Message}");
             }
             return found;
@@ -125,7 +125,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int UpdateMany(List<Employee> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
@@ -139,7 +139,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error updating employee: {ex.Message}");
                     }
                 }
@@ -150,7 +150,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(int id)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Employees.FirstOrDefault(e => e.EmployeeID == id);
@@ -159,7 +159,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting employee: {ex.Message}");
             }
             return true;
@@ -167,7 +167,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(Employee item)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Employees.FirstOrDefault(e => e.EmployeeID == item.EmployeeID);
@@ -176,7 +176,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting employee: {ex.Message}");
             }
             return true;

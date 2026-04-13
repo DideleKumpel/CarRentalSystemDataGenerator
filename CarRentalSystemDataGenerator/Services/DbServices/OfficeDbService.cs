@@ -40,15 +40,15 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         public override Office Add(Office item)
         {
             if (item == null) throw new Exception("Office cannot be null.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 base._db.Offices.Add(item);
-                base._db.SaveChanges();
-            }
+				CommitTransaction();
+			}
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error adding office: {ex.Message}");
             }
             return item;
@@ -56,27 +56,27 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int AddMany(List<Office> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
                 try
                 {
                     if (item == null) throw new Exception("Office cannot be null.");
-                    Add(item);
+                    base._db.Offices.Add(item);
                     successCount++;
                 }
                 catch (Exception ex)
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error adding office: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
-            return successCount;
+			CommitTransaction();
+			return successCount;
         }
 
         public override Office Update(Office item)
@@ -84,7 +84,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Office cannot be null.");
             var found = base._db.Offices.FirstOrDefault(o => o.OfficeID == item.OfficeID);
             if (found == null) throw new Exception($"Office with id {item.OfficeID} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.AddressID = item.AddressID;
@@ -93,7 +93,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating office: {ex.Message}");
             }
             return found;
@@ -104,7 +104,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Office cannot be null.");
             var found = base._db.Offices.FirstOrDefault(o => o.OfficeID == id);
             if (found == null) throw new Exception($"Office with id {id} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.AddressID = item.AddressID;
@@ -113,7 +113,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating office: {ex.Message}");
             }
             return found;
@@ -121,7 +121,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int UpdateMany(List<Office> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
@@ -135,7 +135,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error updating office: {ex.Message}");
                     }
                 }
@@ -146,7 +146,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(int id)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Offices.FirstOrDefault(o => o.OfficeID == id);
@@ -155,7 +155,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting office: {ex.Message}");
             }
             return true;
@@ -163,7 +163,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(Office item)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Offices.FirstOrDefault(o => o.OfficeID == item.OfficeID);
@@ -172,7 +172,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting office: {ex.Message}");
             }
             return true;

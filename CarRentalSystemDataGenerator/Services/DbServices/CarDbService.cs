@@ -40,42 +40,42 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         public override Car Add(Car item)
         {
             if (item == null) throw new Exception("Car cannot be null.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 base._db.Cars.Add(item);
-                base._db.SaveChanges();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error adding car: {ex.Message}");
             }
+            CommitTransaction();
             return item;
         }
 
         public override int AddMany(List<Car> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
                 try
                 {
                     if (item == null) throw new Exception("Car cannot be null.");
-                    Add(item);
+                    base._db.Cars.Add(item);
                     successCount++;
                 }
                 catch (Exception ex)
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error adding car: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
+            CommitTransaction();
             return successCount;
         }
 
@@ -84,7 +84,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Car cannot be null.");
             var found = base._db.Cars.FirstOrDefault(c => c.CarID == item.CarID);
             if (found == null) throw new Exception($"Car with id {item.CarID} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.ModelID = item.ModelID;
@@ -92,11 +92,11 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 found.LicensePlate = item.LicensePlate;
                 found.Year = item.Year;
                 found.DailyRate = item.DailyRate;
-                base._db.SaveChanges();
+                CommitTransaction();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating car: {ex.Message}");
             }
             return found;
@@ -107,7 +107,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Car cannot be null.");
             var found = base._db.Cars.FirstOrDefault(c => c.CarID == id);
             if (found == null) throw new Exception($"Car with id {id} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.ModelID = item.ModelID;
@@ -115,11 +115,11 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 found.LicensePlate = item.LicensePlate;
                 found.Year = item.Year;
                 found.DailyRate = item.DailyRate;
-                base._db.SaveChanges();
+                CommitTransaction();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating car: {ex.Message}");
             }
             return found;
@@ -127,7 +127,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int UpdateMany(List<Car> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
@@ -141,18 +141,18 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error updating car: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
+            CommitTransaction();
             return successCount;
         }
 
         public override bool Delete(int id)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Cars.FirstOrDefault(c => c.CarID == id);
@@ -161,7 +161,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting car: {ex.Message}");
             }
             return true;
@@ -169,7 +169,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(Car item)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Cars.FirstOrDefault(c => c.CarID == item.CarID);
@@ -178,7 +178,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting car: {ex.Message}");
             }
             return true;

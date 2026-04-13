@@ -40,15 +40,15 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         public override Maintenance Add(Maintenance item)
         {
             if (item == null) throw new Exception("Maintenance cannot be null.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 base._db.Maintenances.Add(item);
-                base._db.SaveChanges();
-            }
+				CommitTransaction();
+			}
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error adding maintenance: {ex.Message}");
             }
             return item;
@@ -56,26 +56,26 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int AddMany(List<Maintenance> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
                 try
                 {
                     if (item == null) throw new Exception("Maintenance cannot be null.");
-                    Add(item);
+					base._db.Maintenances.Add(item);
                     successCount++;
                 }
                 catch (Exception ex)
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error adding maintenance: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
+            CommitTransaction();
             return successCount;
         }
 
@@ -84,7 +84,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Maintenance cannot be null.");
             var found = base._db.Maintenances.FirstOrDefault(m => m.MaintenanceID == item.MaintenanceID);
             if (found == null) throw new Exception($"Maintenance with id {item.MaintenanceID} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.CarID = item.CarID;
@@ -95,7 +95,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating maintenance: {ex.Message}");
             }
             return found;
@@ -106,7 +106,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Maintenance cannot be null.");
             var found = base._db.Maintenances.FirstOrDefault(m => m.MaintenanceID == id);
             if (found == null) throw new Exception($"Maintenance with id {id} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.CarID = item.CarID;
@@ -117,7 +117,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating maintenance: {ex.Message}");
             }
             return found;
@@ -125,7 +125,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int UpdateMany(List<Maintenance> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
@@ -139,7 +139,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error updating maintenance: {ex.Message}");
                     }
                 }
@@ -150,7 +150,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(int id)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Maintenances.FirstOrDefault(m => m.MaintenanceID == id);
@@ -159,7 +159,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting maintenance: {ex.Message}");
             }
             return true;
@@ -167,7 +167,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(Maintenance item)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Maintenances.FirstOrDefault(m => m.MaintenanceID == item.MaintenanceID);
@@ -176,7 +176,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting maintenance: {ex.Message}");
             }
             return true;

@@ -40,43 +40,43 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         public override Customer Add(Customer item)
         {
             if (item == null) throw new Exception("Customer cannot be null.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 base._db.Customers.Add(item);
-                base._db.SaveChanges();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error adding customer: {ex.Message}");
             }
-            return item;
+			CommitTransaction();
+			return item;
         }
 
         public override int AddMany(List<Customer> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
                 try
                 {
                     if (item == null) throw new Exception("Customer cannot be null.");
-                    Add(item);
+                    base._db.Customers.Add(item);
                     successCount++;
                 }
                 catch (Exception ex)
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error adding customer: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
-            return successCount;
+			CommitTransaction();
+			return successCount;
         }
 
         public override Customer Update(Customer item)
@@ -84,7 +84,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Customer cannot be null.");
             var found = base._db.Customers.FirstOrDefault(c => c.CustomerID == item.CustomerID);
             if (found == null) throw new Exception($"Customer with id {item.CustomerID} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.AddressID = item.AddressID;
@@ -92,11 +92,11 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 found.LastName = item.LastName;
                 found.Email = item.Email;
                 found.DriverLicenseNum = item.DriverLicenseNum;
-                base._db.SaveChanges();
-            }
+				CommitTransaction();
+			}
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating customer: {ex.Message}");
             }
             return found;
@@ -107,7 +107,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Customer cannot be null.");
             var found = base._db.Customers.FirstOrDefault(c => c.CustomerID == id);
             if (found == null) throw new Exception($"Customer with id {id} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.AddressID = item.AddressID;
@@ -115,11 +115,11 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 found.LastName = item.LastName;
                 found.Email = item.Email;
                 found.DriverLicenseNum = item.DriverLicenseNum;
-                base._db.SaveChanges();
-            }
+				CommitTransaction();
+			}
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating customer: {ex.Message}");
             }
             return found;
@@ -127,7 +127,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int UpdateMany(List<Customer> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
@@ -141,27 +141,27 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error updating customer: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
-            return successCount;
+			CommitTransaction();
+			return successCount;
         }
 
         public override bool Delete(int id)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Customers.FirstOrDefault(c => c.CustomerID == id);
                 if (entity != null) base._db.Customers.Remove(entity);
-                base._db.SaveChanges();
-            }
+				CommitTransaction();
+			}
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting customer: {ex.Message}");
             }
             return true;
@@ -169,16 +169,16 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(Customer item)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Customers.FirstOrDefault(c => c.CustomerID == item.CustomerID);
                 if (entity != null) base._db.Customers.Remove(entity);
-                base._db.SaveChanges();
-            }
+				CommitTransaction();
+			}
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting customer: {ex.Message}");
             }
             return true;

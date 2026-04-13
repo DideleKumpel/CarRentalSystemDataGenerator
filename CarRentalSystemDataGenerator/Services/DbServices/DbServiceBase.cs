@@ -22,7 +22,15 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public virtual void CommitTransaction()
         {
-            _db.Database.CommitTransaction();
+            try
+            {
+                _db.SaveChanges();
+                _db.Database.CommitTransaction();
+            }catch(Exception e)
+            {
+                RollbackTransaction();
+                throw e;
+            }
         }
         public virtual void RollbackTransaction()
         {

@@ -18,7 +18,7 @@ namespace CarRentalSystemDataGenerator.Services.DataGeneratorService
             {
                 var model = models[Random.Next(models.Count)];
                 var office = offices[Random.Next(offices.Count)];
-                list.Add(new Car { ModelID = model.ModelID, OfficeID = office.AddressID, LicensePlate = "PL" + Random.Next(1000, 9999), Year = Random.Next(2000, 2024), DailyRate = (decimal)(Random.Next(30, 200) + Random.NextDouble()) });
+                list.Add(new Car { ModelID = model.ModelID, OfficeID = office.OfficeID, LicensePlate = "PL" + Random.Next(1000, 9999), Year = Random.Next(2000, 2024), DailyRate = (decimal)(Random.Next(30, 200) + Random.NextDouble()) });
             }
             return list;
         }

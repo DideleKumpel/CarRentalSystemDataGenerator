@@ -112,7 +112,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Office> offices = new List<Office>();
             offices.AddRange(_dbFacade.OfficeDbService.GetAll());
-            if (_modelsIsChecked)
+            if (_officesIsChecked)
             {
                 try
                 {
@@ -131,7 +131,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Customer> customers = new List<Customer>();
             customers.AddRange(_dbFacade.CustomerDbService.GetAll());
-            if (_adressesIsChecked)
+            if (_customersIsChecked)
             {
                 try
                 {
@@ -150,7 +150,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Employee> employees = new List<Employee>();
             employees.AddRange(_dbFacade.EmployeeDbService.GetAll());
-            if (_adressesIsChecked)
+            if (_employeesIsChecked)
             {
                 try
                 {
@@ -244,6 +244,10 @@ namespace CarRentalSystemDataGenerator.ViewModel
                     });
                 }
             }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show("Generating ends", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            });
         }
 
         private List<Address> GenerateAddres()

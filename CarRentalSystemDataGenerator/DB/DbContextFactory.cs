@@ -10,6 +10,7 @@ namespace CarRentalSystemDataGenerator.DB
         public static AppDbContext CreateFromAppSettings()
         {
             var baseDir = Directory.GetCurrentDirectory();
+            baseDir = baseDir.Replace("\\bin\\Debug\\net10.0-windows", ""); // Adjust for typical build output path
 
             // Try common locations for appsettings.json. EF tools may run with a different working directory,
             // so search the current directory and its subdirectories for the file.

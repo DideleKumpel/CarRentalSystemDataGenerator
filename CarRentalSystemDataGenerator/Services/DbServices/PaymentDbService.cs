@@ -40,15 +40,15 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         public override Payment Add(Payment item)
         {
             if (item == null) throw new Exception("Payment cannot be null.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 base._db.Payments.Add(item);
-                base._db.SaveChanges();
+                CommitTransaction();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error adding payment: {ex.Message}");
             }
             return item;
@@ -56,26 +56,26 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int AddMany(List<Payment> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
                 try
                 {
                     if (item == null) throw new Exception("Payment cannot be null.");
-                    Add(item);
+					base._db.Payments.Add(item);
                     successCount++;
                 }
                 catch (Exception ex)
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error adding payment: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
+            CommitTransaction();
             return successCount;
         }
 
@@ -84,18 +84,18 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Payment cannot be null.");
             var found = base._db.Payments.FirstOrDefault(p => p.PaymentID == item.PaymentID);
             if (found == null) throw new Exception($"Payment with id {item.PaymentID} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.RentalID = item.RentalID;
                 found.Amount = item.Amount;
                 found.PaymentDate = item.PaymentDate;
                 found.Method = item.Method;
-                base._db.SaveChanges();
+                CommitTransaction();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating payment: {ex.Message}");
             }
             return found;
@@ -106,18 +106,18 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Payment cannot be null.");
             var found = base._db.Payments.FirstOrDefault(p => p.PaymentID == id);
             if (found == null) throw new Exception($"Payment with id {id} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.RentalID = item.RentalID;
                 found.Amount = item.Amount;
                 found.PaymentDate = item.PaymentDate;
                 found.Method = item.Method;
-                base._db.SaveChanges();
+                CommitTransaction();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating payment: {ex.Message}");
             }
             return found;
@@ -125,7 +125,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int UpdateMany(List<Payment> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
@@ -139,27 +139,27 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error updating payment: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
+            CommitTransaction();
             return successCount;
         }
 
         public override bool Delete(int id)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Payments.FirstOrDefault(p => p.PaymentID == id);
                 if (entity != null) base._db.Payments.Remove(entity);
-                base._db.SaveChanges();
+                CommitTransaction();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting payment: {ex.Message}");
             }
             return true;
@@ -167,16 +167,16 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(Payment item)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Payments.FirstOrDefault(p => p.PaymentID == item.PaymentID);
                 if (entity != null) base._db.Payments.Remove(entity);
-                base._db.SaveChanges();
+                CommitTransaction();
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting payment: {ex.Message}");
             }
             return true;

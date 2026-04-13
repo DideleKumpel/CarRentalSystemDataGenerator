@@ -23,7 +23,7 @@ namespace CarRentalSystemDataGenerator.Services.DataGeneratorService
                 {
                     emp = employees[Random.Next(employees.Count)];
                 }
-                var rentalDate = DateTime.Now.AddDays(-Random.Next(0, 365));
+                var rentalDate = DateTime.UtcNow.AddDays(-Random.Next(0, 365));
                 DateTime? returnDate = rentalDate.AddDays(Random.Next(1, 30));
                 list.Add(new Rental { CarID = car.CarID, CustomerID = customer.CustomerID, EmployeeID = emp?.EmployeeID, RentalDate = rentalDate, ReturnDate = returnDate, TotalCost = (decimal)(Random.Next(100, 5000) + Random.NextDouble()) });
             }

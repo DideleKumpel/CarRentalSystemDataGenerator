@@ -22,7 +22,7 @@ namespace CarRentalSystemDataGenerator.Services.DataGeneratorService
                 var office = offices[Random.Next(offices.Count)];
                 var fn = firstNames[Random.Next(firstNames.Length)];
                 var ln = lastNames[Random.Next(lastNames.Length)];
-                list.Add(new Employee { OfficeID = office.AddressID, FirstName = fn, LastName = ln, Position = (EmployeePosition)positions.GetValue(Random.Next(positions.Length))! });
+                list.Add(new Employee { OfficeID = office.OfficeID, FirstName = fn, LastName = ln, Position = (EmployeePosition)positions.GetValue(Random.Next(positions.Length))! });
             }
             return list;
         }

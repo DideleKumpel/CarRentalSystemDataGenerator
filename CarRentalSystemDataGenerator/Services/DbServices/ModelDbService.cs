@@ -40,15 +40,15 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         public override Model Add(Model item)
         {
             if (item == null) throw new Exception("Model cannot be null.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 base._db.Models.Add(item);
-                base._db.SaveChanges();
-            }
+				CommitTransaction();
+			}
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error adding model: {ex.Message}");
             }
             return item;
@@ -56,27 +56,27 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int AddMany(List<Model> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
                 try
                 {
                     if (item == null) throw new Exception("Model cannot be null.");
-                    Add(item);
+                    base._db.Models.Add(item);
                     successCount++;
                 }
                 catch (Exception ex)
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error adding model: {ex.Message}");
                     }
                 }
             }
-            base._db.SaveChanges();
-            return successCount;
+			CommitTransaction();
+			return successCount;
         }
 
         public override Model Update(Model item)
@@ -84,7 +84,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Model cannot be null.");
             var found = base._db.Models.FirstOrDefault(m => m.ModelID == item.ModelID);
             if (found == null) throw new Exception($"Model with id {item.ModelID} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.BrandID = item.BrandID;
@@ -93,7 +93,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating model: {ex.Message}");
             }
             return found;
@@ -104,7 +104,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             if (item == null) throw new Exception("Model cannot be null.");
             var found = base._db.Models.FirstOrDefault(m => m.ModelID == id);
             if (found == null) throw new Exception($"Model with id {id} not found.");
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 found.BrandID = item.BrandID;
@@ -113,7 +113,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error updating model: {ex.Message}");
             }
             return found;
@@ -121,7 +121,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override int UpdateMany(List<Model> items, bool CancelOnError)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             int successCount = 0;
             foreach (var item in items)
             {
@@ -135,7 +135,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                 {
                     if (CancelOnError)
                     {
-                        base.RollbackTransaction();
+                        RollbackTransaction();
                         throw new Exception($"Error updating model: {ex.Message}");
                     }
                 }
@@ -146,7 +146,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(int id)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Models.FirstOrDefault(m => m.ModelID == id);
@@ -155,7 +155,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting model: {ex.Message}");
             }
             return true;
@@ -163,7 +163,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public override bool Delete(Model item)
         {
-            base.BeginTransaction();
+            BeginTransaction();
             try
             {
                 var entity = base._db.Models.FirstOrDefault(m => m.ModelID == item.ModelID);
@@ -172,7 +172,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
             catch (Exception ex)
             {
-                base.RollbackTransaction();
+                RollbackTransaction();
                 throw new Exception($"Error deleting model: {ex.Message}");
             }
             return true;

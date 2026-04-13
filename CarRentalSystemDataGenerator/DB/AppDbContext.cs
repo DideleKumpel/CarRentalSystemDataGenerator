@@ -113,6 +113,14 @@ namespace CarRentalSystemDataGenerator.DB
                 .Property(p => p.Method)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<Rental>()
+                .Property(b => b.RentalDate)
+                .HasColumnType("timestamp with time zone");
+
+            modelBuilder.Entity<Payment>()
+                .Property(b => b.PaymentDate)
+                .HasColumnType("timestamp with time zone");
+
             // Configure column names similar to SQL script
             modelBuilder.Entity<Address>().Property(a => a.AddressID).HasColumnName("AddressID");
             modelBuilder.Entity<Brand>().Property(b => b.BrandID).HasColumnName("BrandID");

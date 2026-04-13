@@ -58,7 +58,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         //Create
         override public Address Add(Address item)
         {
-            BeginTransaction();
+            BeginTransaction();;
             try
             {
                 base._db.Addresses.Add(item);
@@ -72,13 +72,14 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         }
         override public int AddMany(List<Address> items, bool CancelOnError)
         {
-            BeginTransaction();
+            BeginTransaction();;
             int successCount = 0;
             foreach (Address item in items)
             {
                 try
                 {
                     base._db.Addresses.Add(item);
+                    //base._db.SaveChanges();
                 }
                 catch (Exception ex) {
                     if (CancelOnError)
@@ -95,7 +96,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         //Update
         override public Address Update(Address item) { 
-            BeginTransaction();
+            BeginTransaction();;
             try
             {
                 base._db.Addresses.Update(item);
@@ -111,7 +112,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
         }
         override public Address Update(int id, Address item)
         {
-            BeginTransaction();
+            BeginTransaction();;
             try
             {
                 Address address = base._db.Addresses.Where(a => a.AddressID == id).FirstOrDefault();
@@ -137,7 +138,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         override public int UpdateMany(List<Address> items, bool CancelOnError)
         {
-            BeginTransaction();
+            BeginTransaction();;
             int successCount = 0;
             foreach (Address item in items) {
                 try
@@ -158,7 +159,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         //Delete
         override public bool Delete(int id) { 
-            BeginTransaction();
+            BeginTransaction();;
             try
             {
                 Address address = base._db.Addresses.Where(a => a.AddressID == id).FirstOrDefault();
@@ -178,7 +179,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
             }
         }
         override public bool Delete(Address item) {
-            BeginTransaction();
+            BeginTransaction();;
             try
             {
                 base._db.Addresses.Remove(item);
