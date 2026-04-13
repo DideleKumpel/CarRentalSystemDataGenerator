@@ -13,6 +13,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
 
         public AddressDbService(AppDbContext db) : base(db)
         {
+
         }
 
         //Get
