@@ -6,7 +6,7 @@ namespace CarRentalSystemDataGenerator.Services.DbExportService
 {
     internal interface IDbExportServiceInterface
     {
-        public void ExportToCSV(string filePath);
-        public void ExportToJSON(string filePath);
+        public string ExportToXml();
+        public string ExportToJSON();
     }
 }

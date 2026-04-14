@@ -1,19 +1,40 @@
-﻿using System;
+﻿using CarRentalSystemDataGenerator.DB;
+using CarRentalSystemDataGenerator.DB.Entities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Xml.Serialization;
 
 namespace CarRentalSystemDataGenerator.Services.DbExportService
 {
-    internal class AddressDbExportService : IDbExportServiceInterface
+    internal class AddressDbExportService : DbExportServiceBase
     {
-        public void ExportToCSV(string filePath)
+        public AddressDbExportService(AppDbContext db) : base(db)
         {
-            throw new NotImplementedException();
         }
 
-        public void ExportToJSON(string filePath)
+        public override string ExportToXml()
         {
-            throw new NotImplementedException();
+            List<Address> addresses = new List<Address>();
+            addresses = _db.Addresses.ToList();
+            var xmlSerializer = new XmlSerializer(typeof(List<Address>));
+            StringWriter stringWriter = new StringWriter();
+            xmlSerializer.Serialize(stringWriter, addresses);
+            return stringWriter.ToString();
+        }
+
+        public override string ExportToJSON()
+        {
+            List<Address> addresses = new List<Address>();
+            addresses = _db.Addresses.ToList();
+            var JsonOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+            string jsonString = JsonSerializer.Serialize(addresses, JsonOptions);
+            return jsonString;
         }
     }
 }
