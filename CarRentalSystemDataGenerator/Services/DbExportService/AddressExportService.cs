@@ -2,7 +2,6 @@
 using CarRentalSystemDataGenerator.DB.Entities;
 using System;
 using System.Collections.Generic;
-using System.Formats.Asn1;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -10,12 +9,14 @@ using System.Xml.Serialization;
 
 namespace CarRentalSystemDataGenerator.Services.DbExportService
 {
-    internal class BrandExportService : ExportServiceBase<Brand>
+    internal class AddressExportService : ExportServiceBase<Address>
     {
-        public BrandExportService()
-        { }
+        public AddressExportService()
+        {
+        }
 
-        public override async Task<string> ExportToJSONAsync(List<Brand> items, string filePath)
+
+        public override async Task<string> ExportToJSONAsync(List<Address> items, string filePath)
         {
             throw new NotImplementedException();
         }

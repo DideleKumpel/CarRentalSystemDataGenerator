@@ -4,9 +4,8 @@ using System.Text;
 
 namespace CarRentalSystemDataGenerator.Services.DbExportService
 {
-    internal interface IDbExportServiceInterface
+    internal interface IExportServiceInterface<T>
     {
-        public string ExportToXml();
-        public string ExportToJSON();
+        public Task<string> ExportToJSONAsync(List<T> items, string filePath);
     }
 }
