@@ -6,15 +6,12 @@ using System.Text;
 
 namespace CarRentalSystemDataGenerator.ViewModel
 {
-    internal class ExportViewModel: ObservableObject
+    internal partial class ExportViewModel: ObservableObject
     {
         [ObservableProperty]
         private string _directory;
         [ObservableProperty]
         private string _fileName;
-        [ObservableProperty]
-        private bool _xmlSelected;
-
-
+        
     }
 }

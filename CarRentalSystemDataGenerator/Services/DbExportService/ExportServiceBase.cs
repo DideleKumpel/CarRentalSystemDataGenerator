@@ -8,7 +8,7 @@ namespace CarRentalSystemDataGenerator.Services.DbExportService
 {
     internal class ExportServiceBase<T> : IExportServiceInterface<T>
     {
-        private JsonSerializerOptions jsonSerializerOptions;
+        protected JsonSerializerOptions jsonSerializerOptions;
 
         public ExportServiceBase(JsonSerializerOptions options)
         {
