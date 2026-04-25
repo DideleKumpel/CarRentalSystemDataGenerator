@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarRentalSystemDataGenerator.View"
+             xmlns:vm="clr-namespace:CarRentalSystemDataGenerator.ViewModel"
+             d:DataContext="{d:DesignInstance Type=vm:ExportViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
@@ -16,24 +18,25 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Button Content="Back" Command="{Binding BackToMainWindowCommand}"
                 Width="50" Height="30" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Label Content="CarRentDB data export" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"/>
-        <Label Grid.Row="1"
-            Content="Select format" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
-            <RadioButton Content="xml" GroupName="ExportFormat" Margin="0,10"/>
-            <RadioButton Content="json" GroupName="ExportFormat" Margin="0,10"/>
+        <Label Content="CarRentDB data export import" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"/>
+        <Label Grid.Row="2" Content="Select file location"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="5" Height="50">
+            <TextBox Width="300" Margin="0,10" IsReadOnly="True" Text="{Binding FileExport}"/>
+            <Button Content="Browse" Margin="5,10" Command="{Binding CreateFileCommand}"/>
         </StackPanel>
-        <Label Grid.Row="3" Content="Select file location"/>
-        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5" Height="50">
-            <TextBox Width="300" Margin="0,10" IsReadOnly="True"/>
-            <Button Content="Browse" Margin="5,10"/>
+        <Button Grid.Row="6" Height="30" Width="50"
+                Content="Export" Command="{Binding ExportToJsonCommand}"/>
+        <Label Grid.Row="7" Content="Select file to import"/>
+        <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="5" Height="50">
+            <TextBox Width="300" Margin="0,10" IsReadOnly="True" Text="{Binding FileImport}"/>
+            <Button Content="Browse" Margin="5,10" Command="{Binding ChooseFileCommand}"/>
         </StackPanel>
-        <Label Grid.Row="5" Content="File name:"/>
-        <TextBox Grid.Row="6" Width="300" Margin="0,10" HorizontalAlignment="Left"/>
-        <Button Grid.Row="7" Height="30" Width="50"
-                Content="Export"/>
+        <Button Grid.Row="9" Height="30" Width="50"
+            Content="Import" Command="{Binding ImportFromJsonCommand}"/>
     </Grid>
 </UserControl>

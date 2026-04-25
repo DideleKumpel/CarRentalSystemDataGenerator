@@ -29,7 +29,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Button Grid.ColumnSpan="2" Content="Export DB" Width="150" Height="40" Margin="0,10"/>
+            <Button Grid.ColumnSpan="2" Content="Export/Import DB" Width="150" Height="40" Margin="0,10" Command="{Binding SwitchToExportImportViewCommand}"/>
         </Grid>
 
     </Grid>

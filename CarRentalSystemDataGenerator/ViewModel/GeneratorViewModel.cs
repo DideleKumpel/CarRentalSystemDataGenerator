@@ -45,8 +45,8 @@ namespace CarRentalSystemDataGenerator.ViewModel
         [ObservableProperty]
         private int _numOfRecordToGenreate;
 
-        private DatabaseFacade _dbFacade;
-        private DataGeneratorsFacade _dataGeneratorsFacade;
+        private readonly DatabaseFacade _dbFacade;
+        private readonly DataGeneratorsFacade _dataGeneratorsFacade;
 
         [RelayCommand]
         private void SelectAll()
@@ -92,7 +92,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Address> addresses = new List<Address>();
             addresses.AddRange(_dbFacade.AddressDbService.GetAll());
-            if (_adressesIsChecked)
+            if (AdressesIsChecked)
             {
                 try
                 {
@@ -111,7 +111,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Brand> brands = new List<Brand>();
             brands.AddRange(_dbFacade.BrandDbService.GetAll());
-            if (_brandsIsChecked)
+            if (BrandsIsChecked)
             {
                 try
                 {
@@ -130,7 +130,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Model> models = new List<Model>();
             models.AddRange(_dbFacade.ModelDbService.GetAll());
-            if (_modelsIsChecked)
+            if (ModelsIsChecked)
             {
                 try
                 {
@@ -150,7 +150,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Office> offices = new List<Office>();
             offices.AddRange(_dbFacade.OfficeDbService.GetAll());
-            if (_officesIsChecked)
+            if (OfficesIsChecked)
             {
                 try
                 {
@@ -169,7 +169,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Customer> customers = new List<Customer>();
             customers.AddRange(_dbFacade.CustomerDbService.GetAll());
-            if (_customersIsChecked)
+            if (CustomersIsChecked)
             {
                 try
                 {
@@ -188,7 +188,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Employee> employees = new List<Employee>();
             employees.AddRange(_dbFacade.EmployeeDbService.GetAll());
-            if (_employeesIsChecked)
+            if (EmployeesIsChecked)
             {
                 try
                 {
@@ -208,7 +208,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Car> cars = new List<Car>();
             cars.AddRange(_dbFacade.CarDbService.GetAll());
-            if (_carsIsChecked)
+            if (CarsIsChecked)
             {
                 try
                 {
@@ -227,7 +227,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Maintenance> maintenances = new List<Maintenance>();
             maintenances.AddRange(_dbFacade.MaintenanceDbService.GetAll());
-            if (_maintenancesIsChecked)
+            if (MaintenancesIsChecked)
             {
                 try
                 {
@@ -246,7 +246,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Rental> rentals = new List<Rental>();
             rentals.AddRange(_dbFacade.RentalDbService.GetAll());
-            if (_rentalsIsChecked)
+            if (RentalsIsChecked)
             {
                 try
                 {
@@ -266,7 +266,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
 
             List<Payment> payments = new List<Payment>();
             payments.AddRange(_dbFacade.PaymentDbService.GetAll());
-            if (_paymentsIsChecked)
+            if (PaymentsIsChecked)
             {
                 try
                 {

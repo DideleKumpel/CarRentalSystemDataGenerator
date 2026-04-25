@@ -82,7 +82,7 @@ namespace CarRentalSystemDataGenerator.Services.DbServices
                     base._db.Addresses.Add(item);
                     //base._db.SaveChanges();
                 }
-                catch (Exception ex) {
+                catch{
                     if (CancelOnError)
                     {
                         RollbackTransaction();

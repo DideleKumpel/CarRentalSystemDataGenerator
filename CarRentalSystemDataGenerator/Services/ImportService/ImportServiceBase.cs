@@ -1,13 +1,15 @@
-﻿using CarRentalSystemDataGenerator.Services.ImportService;
+﻿using CarRentalSystemDataGenerator.DB.Entities;
+using CarRentalSystemDataGenerator.Services.ImportService;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
 namespace CarRentalSystemDataGenerator.Services.ImportService
 {
-    internal abstract class ImportServiceBase<T>: IImportService<T> where T : class
+    internal class ImportServiceBase<T>: IImportService<T> where T : class
     {
         protected JsonSerializerOptions jsonSerializerOptions;
 
@@ -53,6 +55,37 @@ namespace CarRentalSystemDataGenerator.Services.ImportService
             }
         }
 
-        public abstract Task<bool> CanImportFromJsonAsync(string filePath);
+        public async Task<bool> CanImportFromJsonAsync(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+                return false;
+
+            try
+            {
+                using var stream = File.OpenRead(filePath);
+                using var doc = await JsonDocument.ParseAsync(stream);
+
+                JsonElement root = doc.RootElement;
+                JsonElement elementToCheck = root.ValueKind == JsonValueKind.Array
+                    ? (root.GetArrayLength() > 0 ? root[0] : default)
+                    : root;
+
+                if (elementToCheck.ValueKind == JsonValueKind.Undefined) return true;
+
+                var expectedProps = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Select(p => p.Name.ToLower());
+
+                foreach (var propName in expectedProps)
+                {
+                    bool exists = elementToCheck.EnumerateObject()
+                        .Any(jsonProp => jsonProp.Name.Equals(propName, StringComparison.OrdinalIgnoreCase));
+
+                    if (!exists) return false;
+                }
+
+                return true;
+            }
+            catch { return false; }
+        }
     }
 }

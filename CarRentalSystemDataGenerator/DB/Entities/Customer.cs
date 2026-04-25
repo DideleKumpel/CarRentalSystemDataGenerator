@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace CarRentalSystemDataGenerator.DB.Entities
 {
     public class Customer
@@ -8,8 +10,9 @@ namespace CarRentalSystemDataGenerator.DB.Entities
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string DriverLicenseNum { get; set; } = null!;
-
+        [JsonIgnore]
         public Address Address { get; set; } = null!;
+        [JsonIgnore]
         public System.Collections.Generic.List<Rental> Rentals { get; set; } = new();
     }
 }

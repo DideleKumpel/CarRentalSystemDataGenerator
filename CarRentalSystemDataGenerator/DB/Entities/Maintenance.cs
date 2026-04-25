@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace CarRentalSystemDataGenerator.DB.Entities
 {
     public class Maintenance
@@ -8,6 +10,7 @@ namespace CarRentalSystemDataGenerator.DB.Entities
         public System.DateOnly MaintenanceDate { get; set; }
         public decimal Cost { get; set; }
 
+        [JsonIgnore]
         public Car Car { get; set; } = null!;
     }
 }

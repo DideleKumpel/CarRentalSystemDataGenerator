@@ -9,7 +9,7 @@ namespace CarRentalSystemDataGenerator.DB
     {
         public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<Brand> Brands { get; set; } = null!;
-        public DbSet<Model> Models { get; set; } = null!;
+        public DbSet<Entities.Model> Models { get; set; } = null!;
         public DbSet<Office> Offices { get; set; } = null!;
         public DbSet<Car> Cars { get; set; } = null!;
         public DbSet<Customer> Customers { get; set; } = null!;
@@ -29,7 +29,7 @@ namespace CarRentalSystemDataGenerator.DB
             // Configure keys and relationships where explicit types/names differ
             modelBuilder.Entity<Address>().HasKey(a => a.AddressID);
             modelBuilder.Entity<Brand>().HasKey(b => b.BrandID);
-            modelBuilder.Entity<Model>().HasKey(m => m.ModelID);
+            modelBuilder.Entity<Entities.Model>().HasKey(m => m.ModelID);
             modelBuilder.Entity<Office>().HasKey(o => o.OfficeID);
             modelBuilder.Entity<Car>().HasKey(c => c.CarID);
             modelBuilder.Entity<Customer>().HasKey(c => c.CustomerID);
@@ -38,7 +38,7 @@ namespace CarRentalSystemDataGenerator.DB
             modelBuilder.Entity<Payment>().HasKey(p => p.PaymentID);
             modelBuilder.Entity<Maintenance>().HasKey(ms => ms.MaintenanceID);
 
-            modelBuilder.Entity<Model>()
+            modelBuilder.Entity<Entities.Model>()
                 .HasOne(m => m.Brand)
                 .WithMany(b => b.Models)
                 .HasForeignKey(m => m.BrandID)
@@ -124,7 +124,7 @@ namespace CarRentalSystemDataGenerator.DB
             // Configure column names similar to SQL script
             modelBuilder.Entity<Address>().Property(a => a.AddressID).HasColumnName("AddressID");
             modelBuilder.Entity<Brand>().Property(b => b.BrandID).HasColumnName("BrandID");
-            modelBuilder.Entity<Model>().Property(m => m.ModelID).HasColumnName("ModelID");
+            modelBuilder.Entity<Entities.Model>().Property(m => m.ModelID).HasColumnName("ModelID");
             modelBuilder.Entity<Office>().Property(o => o.OfficeID).HasColumnName("OfficeID");
             modelBuilder.Entity<Car>().Property(c => c.CarID).HasColumnName("CarID");
             modelBuilder.Entity<Customer>().Property(c => c.CustomerID).HasColumnName("CustomerID");

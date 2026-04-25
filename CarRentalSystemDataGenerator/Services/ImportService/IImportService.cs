@@ -8,6 +8,6 @@ namespace CarRentalSystemDataGenerator.Services.ImportService
     internal interface IImportService<T>
     {
         public Task<List<T>> ImportFromJsonAsync(string filePath);
-        public  Task<bool> CanImportFromJsonAsync(string filePath);
+        public Task<bool> CanImportFromJsonAsync(string filePath);
     }
 }

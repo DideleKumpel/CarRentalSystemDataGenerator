@@ -1,20 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CarRentalSystemDataGenerator.ViewModel;
-using CarRentalSystemDataGenerator.View;
+using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 
 namespace CarRentalSystemDataGenerator.ViewModel
 {
     internal partial class MainMenuViewModel: ObservableObject
     {
+        public MainMenuViewModel()
+        {
+        }
+
         [RelayCommand]
         private void SwitchToGeneratorView()
         {
-            var generatorView = new GeneratorView();
+            var generatorView = ((App)Application.Current).ServiceProvider.GetService<GeneratorViewModel>();
             App.Current.MainWindow.Content = generatorView;
+        }
+
+        [RelayCommand]
+        private void SwitchToExportImportView()
+        {
+            var exportView = ((App)Application.Current).ServiceProvider.GetService<ExportViewModel>();
+            App.Current.MainWindow.Content = exportView;
         }
     }
 }

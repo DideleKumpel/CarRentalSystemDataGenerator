@@ -12,6 +12,12 @@
         <DataTemplate x:Name="MainMenuTemplate" DataType="{x:Type viewmodels:MainMenuViewModel}">
             <views:MainMenuView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="ExportImportTemplate" DataType="{x:Type viewmodels:ExportViewModel}">
+            <views:ExportView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="GeneratorTemplate" DataType="{x:Type viewmodels:GeneratorViewModel}">
+            <views:GeneratorView DataContext="{Binding}"/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <ContentControl Content="{Binding}"/>
