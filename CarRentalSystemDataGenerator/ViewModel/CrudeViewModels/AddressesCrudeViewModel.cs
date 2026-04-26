@@ -39,6 +39,8 @@ namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
                 HouseNum = value.HouseNumber;
                 PostalCode = value.PostalCode;
             }
+            DeleteAddressCommand.NotifyCanExecuteChanged();
+            UpdateAddressCommand.NotifyCanExecuteChanged();
         }
 
         public AddressesCrudeViewModel( IDbServiceInterface<Address> dbService)

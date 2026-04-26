@@ -27,5 +27,8 @@
         <DataTemplate DataType="{x:Type crudevm:AddressesCrudeViewModel}">
             <crudeview:AddressesCrudeView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type crudevm:BrandsCrudeViewModel}">
+            <crudeview:BrandsCrudeView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
