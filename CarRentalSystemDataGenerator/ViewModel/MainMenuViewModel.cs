@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace CarRentalSystemDataGenerator.ViewModel
 {
-    internal partial class MainMenuViewModel: ObservableObject
+    internal partial class MainMenuViewModel : ObservableObject
     {
         public MainMenuViewModel()
         {
@@ -23,6 +23,13 @@ namespace CarRentalSystemDataGenerator.ViewModel
         {
             var exportView = ((App)Application.Current).ServiceProvider.GetService<ExportViewModel>();
             App.Current.MainWindow.Content = exportView;
+        }
+
+        [RelayCommand]
+        private void SwitchToCrudeView()
+        {
+            var crudeView = ((App)Application.Current).ServiceProvider.GetService<CrudeViewModel>();
+            App.Current.MainWindow.Content = crudeView;
         }
     }
 }

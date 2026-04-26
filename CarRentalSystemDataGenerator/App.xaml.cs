@@ -6,10 +6,13 @@ using CarRentalSystemDataGenerator.Services.DbExportService;
 using CarRentalSystemDataGenerator.Services.DbServices;
 using CarRentalSystemDataGenerator.Services.ImportService;
 using CarRentalSystemDataGenerator.ViewModel;
+using CarRentalSystemDataGenerator.ViewModels.CrudeViewModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
+using System.IO;
+using System.Text.Json;
 using System.Windows;
 
 namespace CarRentalSystemDataGenerator
@@ -24,10 +27,35 @@ namespace CarRentalSystemDataGenerator
         {
             ServiceCollection services = new ServiceCollection();
 
+            var baseDir = Directory.GetCurrentDirectory();
+            baseDir = baseDir.Replace("\\bin\\Debug\\net10.0-windows", ""); // Adjust for typical build output path
+
+            // Try common locations for appsettings.json. EF tools may run with a different working directory,
+            // so search the current directory and its subdirectories for the file.
+            var path = Path.Combine(baseDir, "appsettings.json");
+            if (!File.Exists(path))
+            {
+                path = Directory.EnumerateFiles(baseDir, "appsettings.json", SearchOption.AllDirectories).FirstOrDefault();
+            }
+
+            if (string.IsNullOrEmpty(path) || !File.Exists(path))
+                throw new FileNotFoundException($"Configuration file not found: appsettings.json (searched under {baseDir})");
+
+            var json = File.ReadAllText(path);
+            using var doc = JsonDocument.Parse(json);
+            string? conn = null;
+            if (doc.RootElement.TryGetProperty("ConnectionStrings", out var cs)
+                && cs.TryGetProperty("DefaultConnection", out var dc))
+            {
+                conn = dc.GetString();
+            }
+
+            if (string.IsNullOrEmpty(conn))
+                throw new InvalidOperationException("DefaultConnection not found in appsettings.json");
+
             services.AddDbContext<AppDbContext>(options =>
             {
-                string connection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                options.UseNpgsql(connection);
+                options.UseNpgsql(conn);
             });
 
             services.AddScoped<IDbServiceInterface<Address>, AddressDbService>();
@@ -62,6 +90,9 @@ namespace CarRentalSystemDataGenerator
             services.AddTransient<MainMenuViewModel>();
             services.AddTransient<ExportViewModel>();
             services.AddTransient<GeneratorViewModel>();
+            services.AddTransient<CrudeViewModel>();
+
+            services.AddTransient<CustomersCrudeViewModel>();
 
 
             ServiceProvider = services.BuildServiceProvider();

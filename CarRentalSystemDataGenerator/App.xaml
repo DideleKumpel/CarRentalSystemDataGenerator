@@ -2,8 +2,27 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CarRentalSystemDataGenerator"
+             xmlns:crudeview="clr-namespace:CarRentalSystemDataGenerator.View.CrudeViews"
+             xmlns:crudevm="clr-namespace:CarRentalSystemDataGenerator.ViewModels.CrudeViewModel"
+             xmlns:viewmodel="clr-namespace:CarRentalSystemDataGenerator.ViewModel"
+             xmlns:view="clr-namespace:CarRentalSystemDataGenerator.View"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type viewmodel:CrudeViewModel}">
+            <view:CrudeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MainMenuViewModel}">
+            <view:MainMenuView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:ExportViewModel}">
+            <view:ExportView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:GeneratorViewModel}">
+            <view:GeneratorView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type crudevm:CustomersCrudeViewModel}">
+             <crudeview:CustomersCrudeView />
+         </DataTemplate>
     </Application.Resources>
 </Application>
