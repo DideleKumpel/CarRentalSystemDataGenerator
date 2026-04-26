@@ -94,6 +94,8 @@ namespace CarRentalSystemDataGenerator
 
             services.AddTransient<CustomersCrudeViewModel>();
             services.AddTransient<AddressesCrudeViewModel>();
+            services.AddTransient<BrandsCrudeViewModel>();
+            services.AddTransient<EmployeesCrudeViewModel>();
 
 
             ServiceProvider = services.BuildServiceProvider();

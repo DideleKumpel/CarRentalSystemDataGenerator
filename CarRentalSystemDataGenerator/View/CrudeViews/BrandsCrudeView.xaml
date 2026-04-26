@@ -44,8 +44,8 @@
           CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
           AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding AddressID}" Width="2*"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding City}" Width="7*"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding BrandID}" Width="2*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="7*"/>
             </DataGrid.Columns>
 
         </DataGrid>

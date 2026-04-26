@@ -30,5 +30,8 @@
         <DataTemplate DataType="{x:Type crudevm:BrandsCrudeViewModel}">
             <crudeview:BrandsCrudeView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type crudevm:EmployeesCrudeViewModel}">
+            <crudeview:EmployeesCrudeView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

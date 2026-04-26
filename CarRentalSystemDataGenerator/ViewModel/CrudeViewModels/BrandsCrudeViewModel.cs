@@ -33,7 +33,8 @@ namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
         [RelayCommand]
         public void LoadBrands()
         {
-            _dbService.GetAll();
+            List<Brand> list = _dbService.GetAll();
+            BrandsList = new ObservableCollection<Brand>(list);
         }
 
         [RelayCommand]
