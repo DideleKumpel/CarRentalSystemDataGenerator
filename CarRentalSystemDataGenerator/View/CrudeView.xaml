@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CarRentalSystemDataGenerator.View"
              xmlns:view="clr-namespace:CarRentalSystemDataGenerator.View"
              xmlns:viewmodel="clr-namespace:CarRentalSystemDataGenerator.ViewModel"
-             xmlns:crudevm="clr-namespace:CarRentalSystemDataGenerator.ViewModels.CrudeViewModel"
+             xmlns:crudevm="clr-namespace:CarRentalSystemDataGenerator.ViewModel.CrudeViewModels"
              d:DataContext="{d:DesignInstance Type=viewmodel:CrudeViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
              d:DesignHeight="1200" d:DesignWidth="1000">
@@ -21,12 +21,15 @@
             <Label Content="CarRentDB CRUD Operations" FontSize="24" VerticalAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Customers" Margin="5,0" Padding="5"/>
+            <Button Content="Addresses" Margin="5,0" Padding="5" Command="{Binding SwitchToAddressesCommand}"/>
+            <Button Content="Brands" Margin="5,0" Padding="5" Command=""/>
+            <Button Content="Customers" Margin="5,0" Padding="5" Command="{Binding SwitchToCustomersCommand}"/>
             <Button Content="Employees" Margin="5,0" Padding="5"/>
             <Button Content="Cars" Margin="5,0" Padding="5"/>
             <Button Content="Rentals" Margin="5,0" Padding="5"/>
             <Button Content="Payments" Margin="5,0" Padding="5"/>
             <Button Content="Maintenances" Margin="5,0" Padding="5"/>
+            <Button Content="Models" Margin="5,0" Padding="5"/>
         </StackPanel>
         <ContentControl Grid.Row="2" Content="{Binding CurrentViewModel}" Margin="10"/>
     </Grid>

@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 
-namespace CarRentalSystemDataGenerator.ViewModels.CrudeViewModel
+namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
 {
     internal partial class CustomersCrudeViewModel: ObservableObject
     {

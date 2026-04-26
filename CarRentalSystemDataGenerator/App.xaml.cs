@@ -6,7 +6,7 @@ using CarRentalSystemDataGenerator.Services.DbExportService;
 using CarRentalSystemDataGenerator.Services.DbServices;
 using CarRentalSystemDataGenerator.Services.ImportService;
 using CarRentalSystemDataGenerator.ViewModel;
-using CarRentalSystemDataGenerator.ViewModels.CrudeViewModel;
+using CarRentalSystemDataGenerator.ViewModel.CrudeViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
@@ -93,6 +93,7 @@ namespace CarRentalSystemDataGenerator
             services.AddTransient<CrudeViewModel>();
 
             services.AddTransient<CustomersCrudeViewModel>();
+            services.AddTransient<AddressesCrudeViewModel>();
 
 
             ServiceProvider = services.BuildServiceProvider();

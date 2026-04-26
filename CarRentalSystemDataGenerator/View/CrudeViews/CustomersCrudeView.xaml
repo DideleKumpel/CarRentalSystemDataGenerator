@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarRentalSystemDataGenerator.View.CrudeViews"
-             xmlns:crudevw="clr-namespace:CarRentalSystemDataGenerator.ViewModels.CrudeViewModel"
-             d:DataContext="{d:DesignInstance Type=crudevw:CustomersCrudeViewModel, IsDesignTimeCreatable=True}"
+             xmlns:crudevm="clr-namespace:CarRentalSystemDataGenerator.ViewModel.CrudeViewModels"
+             d:DataContext="{d:DesignInstance Type=crudevm:CustomersCrudeViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
