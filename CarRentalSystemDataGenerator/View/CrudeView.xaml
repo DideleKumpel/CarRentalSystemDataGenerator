@@ -7,7 +7,7 @@
              xmlns:view="clr-namespace:CarRentalSystemDataGenerator.View"
              xmlns:viewmodel="clr-namespace:CarRentalSystemDataGenerator.ViewModel"
              xmlns:crudevm="clr-namespace:CarRentalSystemDataGenerator.ViewModel.CrudeViewModels"
-             d:DataContext="{d:DesignInstance Type=viewmodel:CrudeViewModel, IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance Type=viewmodel:CrudeViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200">
     <Grid>
@@ -24,9 +24,9 @@
             <Button Content="Addresses" Margin="5,0" Padding="5" Command="{Binding SwitchToAddressesCommand}"/>
             <Button Content="Brands" Margin="5,0" Padding="5" Command="{Binding SwitchToBrandsCommand}"/>
             <Button Content="Customers" Margin="5,0" Padding="5" Command="{Binding SwitchToCustomersCommand}"/>
-            <Button Content="Employees" Margin="5,0" Padding="5" Command="{Binding SwipeToEmployeesCommand}"/>
-            <Button Content="Cars" Margin="5,0" Padding="5"/>
-            <Button Content="Rentals" Margin="5,0" Padding="5"/>
+            <Button Content="Employees" Margin="5,0" Padding="5" Command="{Binding SwitchToEmployeesCommand}"/>
+            <Button Content="Cars" Margin="5,0" Padding="5" Command="{Binding SwitchToCarsCommand}"/>
+            <Button Content="Rentals" Margin="5,0" Padding="5" Command="{Binding SwitchToRentalsCommand}" />
             <Button Content="Payments" Margin="5,0" Padding="5"/>
             <Button Content="Maintenances" Margin="5,0" Padding="5"/>
             <Button Content="Models" Margin="5,0" Padding="5"/>

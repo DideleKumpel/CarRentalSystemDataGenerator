@@ -1,5 +1,4 @@
 ﻿using CarRentalSystemDataGenerator.DB.Entities;
-using CarRentalSystemDataGenerator.DB.Enums;
 using CarRentalSystemDataGenerator.Services.DbServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -11,66 +10,71 @@ using System.Windows;
 
 namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
 {
-    internal partial class EmployeesCrudeViewModel: ObservableObject
+    partial class CarsCrudeViewModel: ObservableObject
     {
-        private readonly IDbServiceInterface<Employee> _dbService;
+        private readonly IDbServiceInterface<Car> _dbService;
 
         [ObservableProperty]
         private int _id;
         [ObservableProperty]
+        private int _modelId;
+        [ObservableProperty]
         private int _officeId;
         [ObservableProperty]
-        private string _firstName;
+        private string _licensePlate;
         [ObservableProperty]
-        private string _lastName;
+        private int _year;
         [ObservableProperty]
-        private EmployeePosition _position;
+        private Decimal _dailyRate;
 
         [ObservableProperty]
-        private ObservableCollection<Employee> _employees;
+        private ObservableCollection<Car> _list;
         [ObservableProperty]
-        private Employee _selectedEmployee;
+        private Car _selected;
 
-        partial void OnSelectedEmployeeChanged(Employee value)
+        partial void OnSelectedChanged(Car value)
         {
-            if (_selectedEmployee != null) {
-                Id = value.EmployeeID;
-                OfficeId = value.OfficeID;
-                FirstName = value.FirstName;
-                LastName = value.LastName;
-                Position = value.Position;
+            if (_selected != value)
+            {
+                Id = Selected.CarID;
+                ModelId = Selected.ModelID;
+                OfficeId = Selected.OfficeID;
+                LicensePlate = Selected.LicensePlate;
+                Year = Selected.Year;
+                DailyRate = Selected.DailyRate;
             }
-            RemoveCommand.NotifyCanExecuteChanged();
-            UpdateCommand.NotifyCanExecuteChanged();
         }
 
-
-        public EmployeesCrudeViewModel(IDbServiceInterface<Employee> dbService) {
+        public CarsCrudeViewModel(IDbServiceInterface<Car> dbService)
+        {
             _dbService = dbService;
-            Load();
-        }
-        [RelayCommand]
-        public void Load() {
-            List<Employee> list = _dbService.GetAll();
-            Employees = new ObservableCollection<Employee>(list);
         }
 
         [RelayCommand]
-        public void Add() {
-            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName))
+        private void Load()
+        {
+            List<Car> list = _dbService.GetAll();
+            List = new ObservableCollection<Car>(list);
+        }
+
+        [RelayCommand]
+        public void Add()
+        {
+            if (string.IsNullOrEmpty(LicensePlate))
             {
                 MessageBox.Show("Fill forms", " Missing data", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            Employee employeeToAdd = new Employee
+            Car toAdd = new Car
             {
                 OfficeID = OfficeId,
-                FirstName = FirstName,
-                LastName = LastName,
-                Position = Position,
+                ModelID = ModelId,
+                LicensePlate = LicensePlate,
+                Year = Year,
+                DailyRate = DailyRate
             };
             try
             {
-                _dbService.Add(employeeToAdd);
+                _dbService.Add(toAdd);
                 MessageBox.Show("Added", " Missing data", MessageBoxButton.OK, MessageBoxImage.Error);
                 Load();
             }
@@ -81,12 +85,13 @@ namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
         }
 
         [RelayCommand(CanExecute = nameof(IsSelected))]
-        public void Remove() {
-            if (SelectedEmployee != null)
+        public void Remove()
+        {
+            if (Selected != null)
             {
                 try
                 {
-                    _dbService.Delete(SelectedEmployee);
+                    _dbService.Delete(Selected);
                     MessageBox.Show("Deleted");
                     Load();
                 }
@@ -100,19 +105,19 @@ namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
         [RelayCommand(CanExecute = nameof(IsSelected))]
         private void Update()
         {
-            if (SelectedEmployee != null)
+            if (Selected != null)
             {
-                var updatedCustomer = new Employee
+                var updated = new Car
                 {
-                    EmployeeID = SelectedEmployee.EmployeeID,
+                    ModelID = ModelId,
                     OfficeID = OfficeId,
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    Position = Position
+                    LicensePlate = LicensePlate,
+                    Year = Year,
+                    DailyRate= DailyRate
                 };
                 try
                 {
-                    _dbService.Update(updatedCustomer);
+                    _dbService.Update(updated);
                     Load();
                     MessageBox.Show("Added", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -125,7 +130,7 @@ namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
 
         private bool IsSelected()
         {
-            return SelectedEmployee != null;
+            return Selected != null;
         }
     }
 }
