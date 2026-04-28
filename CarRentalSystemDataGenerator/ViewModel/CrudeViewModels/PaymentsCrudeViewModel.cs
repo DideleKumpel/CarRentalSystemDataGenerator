@@ -43,6 +43,8 @@ namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
                 Amount = value.Amount;
                 PaymentDate = value.PaymentDate;
                 Method = value.Method;
+                RemoveCommand.NotifyCanExecuteChanged();
+                UpdateCommand.NotifyCanExecuteChanged();
             }
         }
 

@@ -19,6 +19,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
         private CarsCrudeViewModel _carsCrudeViewModel;
         private RentalsCrudeViewModel _rentalsCrudeViewModel;
         private PaymentsCrudeViewModel _paymentsCrudeViewModel;
+        private MaintencesCrudeViewModel _maintencesCrudeViewModel;
 
         public CrudeViewModel()
         {
@@ -29,6 +30,7 @@ namespace CarRentalSystemDataGenerator.ViewModel
             _carsCrudeViewModel = ((App)Application.Current).ServiceProvider.GetService<CarsCrudeViewModel>();
             _rentalsCrudeViewModel = ((App)Application.Current).ServiceProvider.GetService<RentalsCrudeViewModel>();
             _paymentsCrudeViewModel = ((App)Application.Current).ServiceProvider.GetService<PaymentsCrudeViewModel>();
+            _maintencesCrudeViewModel = ((App)Application.Current).ServiceProvider.GetService<MaintencesCrudeViewModel>();
             CurrentViewModel = _customersCrudeViewModel;
         }
 
@@ -74,6 +76,11 @@ namespace CarRentalSystemDataGenerator.ViewModel
         private void SwitchToPayments()
         {
             CurrentViewModel = _paymentsCrudeViewModel;
+        }
+        [RelayCommand]
+        private void SwitchToMaintences()
+        {
+            CurrentViewModel = _maintencesCrudeViewModel;
         }
     }
 }

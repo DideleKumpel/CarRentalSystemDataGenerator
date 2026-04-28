@@ -7,52 +7,47 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 
 namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
 {
-    partial class RentalsCrudeViewModel: ObservableObject
+    internal partial class MaintencesCrudeViewModel: ObservableObject
     {
-        private readonly IDbServiceInterface<Rental> _dbService;
+        private readonly IDbServiceInterface<Maintenance> _dbService;
 
         [ObservableProperty]
         private int _id;
         [ObservableProperty]
         private int _carId;
         [ObservableProperty]
-        private int _customerId;
+        private string _description;
         [ObservableProperty]
-        private int? _employerId;
+        private DateOnly _maintenceDate;
         [ObservableProperty]
-        private DateTime _rentalDate;
-        [ObservableProperty]
-        private DateTime? _returnDate;
-        [ObservableProperty]
-        private decimal _totalCost;
+        private decimal _cost;
 
         [ObservableProperty]
-        private ObservableCollection<Rental> _list;
+        private ObservableCollection<Maintenance> _list;
         [ObservableProperty]
-        private Rental _selected;
+        private Maintenance _selected;
 
-        partial void OnSelectedChanged(Rental value)
+        partial void OnSelectedChanged(Maintenance value)
         {
             if (value != null)
             {
-                Id = value.RentalID;
+                Id = value.MaintenanceID;
                 CarId = value.CarID;
-                CustomerId = value.CustomerID;
-                EmployerId = value.EmployeeID;    
-                RentalDate = value.RentalDate;
-                ReturnDate = value.ReturnDate;
-                TotalCost = value.TotalCost;
+                Description = value.Description;
+                MaintenceDate = value.MaintenanceDate;
+                Cost = value.Cost;
                 RemoveCommand.NotifyCanExecuteChanged();
                 UpdateCommand.NotifyCanExecuteChanged();
             }
         }
 
-        public RentalsCrudeViewModel(IDbServiceInterface<Rental> dbService)
+        public MaintencesCrudeViewModel(IDbServiceInterface<Maintenance> dbService)
         {
             _dbService = dbService;
             Load();
@@ -61,21 +56,19 @@ namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
         [RelayCommand]
         private void Load()
         {
-            List<Rental> list = _dbService.GetAll();
-            List = new ObservableCollection<Rental>(list);
+            List<Maintenance> list = _dbService.GetAll();
+            List = new ObservableCollection<Maintenance>(list);
         }
 
         [RelayCommand]
         public void Add()
         {
-            Rental toAdd = new Rental
+            Maintenance toAdd = new Maintenance
             {
                 CarID = CarId,
-                CustomerID = CustomerId,
-                EmployeeID = EmployerId,
-                RentalDate = RentalDate,
-                ReturnDate = ReturnDate,
-                TotalCost = TotalCost,
+                Description = Description,
+                MaintenanceDate = MaintenceDate,
+                Cost = Cost,
             };
             try
             {
@@ -112,15 +105,13 @@ namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
         {
             if (Selected != null)
             {
-                var updated = new Rental
+                var updated = new Maintenance
                 {
-                    RentalID = Selected.RentalID,
+                    MaintenanceID = Selected.MaintenanceID,
                     CarID = CarId,
-                    CustomerID = CustomerId,
-                    EmployeeID = EmployerId,
-                    RentalDate = RentalDate,
-                    ReturnDate = ReturnDate,
-                    TotalCost = TotalCost,
+                    Description = Description,
+                    MaintenanceDate = MaintenceDate,
+                    Cost = Cost,
                 };
                 try
                 {

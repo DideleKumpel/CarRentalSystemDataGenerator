@@ -42,12 +42,15 @@ namespace CarRentalSystemDataGenerator.ViewModel.CrudeViewModels
                 LicensePlate = Selected.LicensePlate;
                 Year = Selected.Year;
                 DailyRate = Selected.DailyRate;
+                RemoveCommand.NotifyCanExecuteChanged();
+                UpdateCommand.NotifyCanExecuteChanged();
             }
         }
 
         public CarsCrudeViewModel(IDbServiceInterface<Car> dbService)
         {
             _dbService = dbService;
+            Load();
         }
 
         [RelayCommand]

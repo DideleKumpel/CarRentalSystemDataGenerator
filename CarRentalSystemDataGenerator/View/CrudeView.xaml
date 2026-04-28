@@ -28,7 +28,7 @@
             <Button Content="Cars" Margin="5,0" Padding="5" Command="{Binding SwitchToCarsCommand}"/>
             <Button Content="Rentals" Margin="5,0" Padding="5" Command="{Binding SwitchToRentalsCommand}" />
             <Button Content="Payments" Margin="5,0" Padding="5" Command="{Binding SwitchToPaymentsCommand}"/>
-            <Button Content="Maintenances" Margin="5,0" Padding="5"/>
+            <Button Content="Maintenances" Margin="5,0" Padding="5" Command="{Binding SwitchToMaintencesCommand}"/>
             <Button Content="Models" Margin="5,0" Padding="5"/>
         </StackPanel>
         <ContentControl Grid.Row="2" Content="{Binding CurrentViewModel}" Margin="10"/>
