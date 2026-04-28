@@ -27,7 +27,7 @@
             <Button Content="Employees" Margin="5,0" Padding="5" Command="{Binding SwitchToEmployeesCommand}"/>
             <Button Content="Cars" Margin="5,0" Padding="5" Command="{Binding SwitchToCarsCommand}"/>
             <Button Content="Rentals" Margin="5,0" Padding="5" Command="{Binding SwitchToRentalsCommand}" />
-            <Button Content="Payments" Margin="5,0" Padding="5"/>
+            <Button Content="Payments" Margin="5,0" Padding="5" Command="{Binding SwitchToPaymentsCommand}"/>
             <Button Content="Maintenances" Margin="5,0" Padding="5"/>
             <Button Content="Models" Margin="5,0" Padding="5"/>
         </StackPanel>
