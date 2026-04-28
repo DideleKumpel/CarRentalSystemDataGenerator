@@ -45,6 +45,9 @@
         <DataTemplate DataType="{x:Type crudevm:MaintencesCrudeViewModel}">
             <crudeview:MaintencesCrudeView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type crudevm:ModelsCrudeViewModel}">
+            <crudeview:ModelsCrudeView/>
+        </DataTemplate>
 
     </Application.Resources>
 </Application>
